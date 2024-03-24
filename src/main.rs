@@ -1,6 +1,8 @@
+mod model;
+
 use rocket::{get, launch, routes};
 use rocket::fs::{FileServer, Options, relative};
-use rocket_dyn_templates::Template;
+use rocket_dyn_templates::{context, Template};
 
 #[launch]
 fn rocket() -> _ {
@@ -11,6 +13,6 @@ fn rocket() -> _ {
 }
 
 #[get("/")]
-async fn root() -> String {
-    "Hello, World".to_string()
+async fn root() -> Template {
+    Template::render("root", context! { message: "Hello, Rust"})
 }
