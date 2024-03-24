@@ -22,7 +22,9 @@
     {{/if}}
 
     <form method="POST" enctype="multipart/form-data" action="/">
-        <input type="text" name="first-name">
+        <input type="text" name="first-name" value="{{ first_name }}" aria-invalid="{{ first_name_error }}">
+        <input type="text" name="first-name" value="{{ last_name }}" aria-invalid="{{ last_name_error }}">
+        <button type="submit">Say Hello</button>
     </form>
 </main>
 </body>
