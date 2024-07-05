@@ -1,36 +1,16 @@
-use std::cmp::Ordering;
-use std::io;
-use rand::Rng;
+use std::env;
+use std::fs;
 
 fn main() {
-    println!("Guess the number!");
+    let args: Vec<String> = env::args().collect();
 
-    let secret_number = rand::thread_rng().gen_range(1..=100);
+    let query = &args[1];
+    let file_path = &args[2];
 
-    println!("The secret number is: {secret_number}");
-    loop {
-        
-    println!("Please input your guess.");
+    println!("Searching for {}", query);
+    println!("In file {}", file_path);
 
-    let mut guess = String::new();
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line");
+    let contents = fs::read_to_string(file_path).expect("Should have been able to read the file");
 
-    let guess: u32 = match guess.trim().parse() {
-        Ok(num) => num,
-        Err(_) => continue,
-    };
-    println!("You guessed: {guess}");
-
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small!"),
-        Ordering::Greater => println!("Too big!"),
-        Ordering::Equal => {
-            println!("You win!");
-            break;
-        }
-    }
-    }
+    println!("With text:\n{contents}")
 }
-    
